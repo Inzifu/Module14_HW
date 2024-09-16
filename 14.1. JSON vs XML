@@ -1,0 +1,84 @@
+//Задание 1.
+
+ const xmlString = `
+<list>
+  <student>
+    <name lang="en">
+      <first>Ivan</first>
+      <second>Ivanov</second>
+    </name>
+    <age>35</age>
+    <prof>teacher</prof>
+  </student>
+  <student>
+    <name lang="ru">
+      <first>Петр</first>
+      <second>Петров</second>
+    </name>
+    <age>58</age>
+    <prof>driver</prof>
+  </student>
+</list>
+`; 
+
+const parser = new DOMParser();
+
+const xmlDOM = parser.parseFromString(xmlString, "text/xml");
+	
+const listNodes = xmlDOM.querySelector("list");
+const studentNodes = listNodes.querySelectorAll("student");
+	
+let result = []
+ 
+	studentNodes.forEach((elem) => {
+	    const studentFirstName = elem.querySelector("first");
+			const studentSecondName = elem.querySelector("second");
+	    const studentAge = elem.querySelector("age");
+	    const studentProf = elem.querySelector("prof");
+	    const nameNode = elem.querySelector("name");
+	    const nameLang = nameNode.getAttribute("lang");
+      
+      const student = new Object();
+	    student.name = studentFirstName.textContent+ ' ' +studentSecondName.textContent; 
+	    student.age = studentAge.textContent;
+	    student.prof = studentProf.textContent;
+	    student.lang = nameLang;
+	
+	    result.push(student);
+	
+    });
+    console.log(result); 
+    
+console.log("------------------------------------------------------")
+
+
+//Задание 2.
+
+const JSONString = `
+{
+	"list": [
+	 {
+	  "name": "Petr",
+	  "age": "20",
+	  "prof": "mechanic"
+	 },
+	 {
+	  "name": "Vova",
+	  "age": "60",
+	  "prof": "pilot"
+	 }
+	]
+   }
+   `;
+    
+
+const data = JSON.parse(JSONString);	
+const list = data.list;
+	
+const res = []	    
+
+	list.forEach((elem)  => {
+		res.push(elem);
+	});
+
+console.log(res);
